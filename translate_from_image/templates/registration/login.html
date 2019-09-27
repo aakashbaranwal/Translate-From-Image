@@ -1,0 +1,177 @@
+{% load static %}
+
+<style>
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 0;
+}
+
+.rounded-btn {
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    color: rgba(255, 255, 255, 0.8);
+    background: #222;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    line-height: 40px;
+    padding: 0 25px;
+}
+
+.rounded-btn:hover, .rounded-btn:focus, .rounded-btn:active,
+    .rounded-btn:visited {
+    color: white;
+    border: 2px solid white;
+    outline: none;
+}
+
+.btnBg {
+    color: #fff;
+    background-color: #666 !important;
+    margin-left: 15px;
+}
+
+.displayNone {
+    display: none;
+}
+
+.form-content {
+    padding: 40px 0;
+}
+
+.form-group {
+    padding: 8px 0;
+}
+
+.form-group input::-webkit-input-placeholder {
+    color: #D3D3D3 !important;
+}
+
+.form-group input:-moz-placeholder {
+    color: #D3D3D3 !important;
+}
+
+.form-group input::-moz-placeholder {
+    color: #D3D3D3 !important;
+}
+
+.form-group input:-ms-input-placeholder {
+    color: #D3D3D3 !important;
+}
+
+.login_label {
+    font-weight: 300;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 36px;
+}
+.login_button
+{
+    font-size: 18px;
+    line-height: 40px;
+    padding: 0 25px;
+}
+.login_button_block
+{
+    margin-left: 10%;
+    margin-top: 3%;
+}
+input,
+select.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #000000;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.login_page{
+width:100%;
+}
+.user-avatar{
+width:150px;
+}
+@media only screen and (max-width: 480px){
+ .login_page{
+position: absolute;
+    left: 0;
+    right: 0;
+    top: -1%!important;
+    bottom: 0;
+    overflow: hidden;
+    background: #fff;
+    text-align: center;
+    color: green;
+    padding: 5em;
+    display:block;
+    box-sizing: border-box;
+}
+.form-group{
+width:20%;
+}
+.user-avatar{
+width:100% !important;
+}
+}
+</style>
+{% block script %}
+<script>
+$(document).ready(function(){
+  $("form input").addClass('form-control')
+});
+</script>
+
+
+{% endblock %} {% block content %}
+<div class="col-md-12 col-sm-12 login_page row justify-content-md-center align-class">
+<div style="width:500px; margin:0 auto; border:0 solid #000; text-align:center; margin-top:15%;">
+
+    <img src="{% static 'images/login.jpg' %}" 
+        alt="hsc logo" class="user-avatar" >
+
+
+    <h1 class="login_label">Translate From Image</h1>
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %} {% if next %} {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+    {% else %} {% endif %} {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div class="form-group form-control input-lg"
+            style="font-size: 24px; font-style: Helvetica Neue">
+            <input _ngcontent-c23="" autocomplete="off"
+                class="form-control input-underline input-lg ng-dirty ng-valid ng-touched"
+                name="username" ngmodel="" placeholder="Username" required=""
+                type="text">
+                 <!-- {{ form.username.label_tag }} 
+                 {{ form.username}} -->
+        </div>
+
+
+        <div class="form-group form-control input-lg"
+            style="font-size: 24px; font-style: Helvetica Neue">
+            <input _ngcontent-c23="" class="form-control input-underline input-lg ng-dirty ng-valid ng-touched" name="password" ngmodel="" placeholder="Password" required="" type="password">
+            <!-- {{form.password.label_tag }} {{ form.password }} --></div>
+
+
+<div class="login_button_block">
+        <button type="submit" class='btn rounded-btn'
+            class="login_button">Login</button>
+        <input type="hidden" name="next" value="{{ next }}" /></div>
+    </form>
+
+    <!-- 
+<img src="{% static 'login.png' %}" width="100" >Aakash  
+ -->
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <!-- <p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
+</div>
+</div>
+{% endblock %}
